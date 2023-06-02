@@ -1,0 +1,33 @@
+{
+	"id": "netron-en",
+	"name": "netron-en",
+	"shortname": "netron",
+	"description": "Module to control Netron EN devices",
+	"version": "0.0.0",
+	"license": "MIT",
+	"repository": "git+https://github.com/bitfocus/companion-module-netron-en.git",
+	"bugs": "https://github.com/bitfocus/companion-module-netron-en/issues",
+	"maintainers": [
+		{
+			"name": "Joseph Adams",
+			"email": "josephdadams@gmail.com"
+		}
+	],
+	"legacyIds": [
+		"kipro"
+	],
+	"runtime": {
+		"type": "node18",
+		"api": "nodejs-ipc",
+		"apiVersion": "0.0.0",
+		"entrypoint": "../index.js"
+	},
+	"manufacturer": "Netron",
+	"products": [
+		"EN",
+		"EN-12"
+	],
+	"keywords": [
+		"Lighting"
+	]
+}
