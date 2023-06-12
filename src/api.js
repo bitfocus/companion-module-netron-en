@@ -9,7 +9,7 @@ module.exports = {
 			this.updateStatus(InstanceStatus.Connecting);
 		}
 		else {
-			this.status(InstanceStatus.Ok); //mark it ok because we really don't know if it's ok or not until an action is sent
+			this.updateStatus(InstanceStatus.Ok); //mark it ok because we really don't know if it's ok or not until an action is sent
 		}
 	},
 
@@ -21,38 +21,43 @@ module.exports = {
 	},
 
 	getCurrentCue() {
-		let args = {};	
+		let self = this;
+
+		let args = {
+			//headers: { "Content-Type": "application/x-www-form-urlencoded" }
+		};
+		
 		let client = new Client();
 	
-		client.get('http://' + this.config.host + '/CueStatus.json', args, function (data, response) {
-			if (typeof data !== 'object') {
-				data = JSON.parse(data);
-			}
-
+		client.get('http://' + this.config.host + '/CuesStatus.json', function (data, response) {	
 			if (data && data.CueRunningName) {
-				this.CURRENT_CUE_NAME = data.CueRunningName;
+				self.CURRENT_CUE_NAME = data.CueRunningName;
 				if (data.CueRunningName.indexOf('Cue ') > -1) {
-					this.CURRENT_CUE = parseInt(data.CueRunningName.replace('Cue ',''));
+					self.CURRENT_CUE = parseInt(data.CueRunningName.replace('Cue ',''));
 				}
-				this.checkVariables();
-				this.checkFeedbacks();
-				this.status(InstanceStatus.Ok);
+				else {
+					self.CURRENT_CUE = 0;
+				}
+				self.checkVariables();
+				self.checkFeedbacks();
+				self.updateStatus(InstanceStatus.Ok);
 			}
-		}.bind(this)).on('error', function(error) {
-			this.status(InstanceStatus.Error);
-			this.log('error', 'Error Getting Current Cue: ' + error.toString());
-			if  (this.INTERVAL !== undefined) {
-				this.log('debug', 'Stopping Polling...');
-				this.stopPolling();
+		}.bind(self)).on('error', function(error) {
+			self.status(InstanceStatus.Error);
+			self.log('error', 'Error Getting Current Cue: ' + error.toString());
+			if  (self.INTERVAL !== undefined) {
+				self.log('debug', 'Stopping Polling...');
+				self.stopPolling();
 			}
-		}.bind(this));
+		}.bind(self));
 	},
 
 	sendRunCueCommand(cmd) {
 		this.log('info', 'Running Cue ' + cmd.RunCue);
 		
 		let args = {
-			data: cmd
+			data: cmd,
+			headers: { "Content-Type": "application/x-www-form-urlencoded" }
 		};
 	
 		let client = new Client();
@@ -72,7 +77,8 @@ module.exports = {
 		};
 
 		let args = {
-			data: cmd
+			data: cmd,
+			headers: { "Content-Type": "application/x-www-form-urlencoded" }
 		};
 	
 		let client = new Client();

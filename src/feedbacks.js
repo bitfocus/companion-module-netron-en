@@ -37,7 +37,7 @@ module.exports = {
             callback: function (feedback) {
                 let opt = feedback.options;
 
-				if (this.CURRENT_CUE == opt.cueNumber) {
+				if (self.CURRENT_CUE == opt.cueNumber) {
 					return true;
 				}
 
