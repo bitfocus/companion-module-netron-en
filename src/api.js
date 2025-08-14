@@ -68,6 +68,23 @@ module.exports = {
 			this.log('error', 'Error Sending Run Cue Command ' + error.toString());
 		}.bind(this));
 	},
+
+  sendRunCueCommand(cmd) {
+		this.log('info', 'Saving Cue ' + cmd.CueNum);
+
+		let args = {
+			data: cmd,
+			headers: { "Content-Type": "application/x-www-form-urlencoded" }
+		};
+	
+		let client = new Client();
+	
+		client.post('http://' + this.config.host + '/save_cues', args, function (data, response) {
+			//do something with response
+		}.bind(this)).on('error', function(error) {
+			this.log('error', 'Error Sending Save Cue Command ' + error.toString());
+		}.bind(this));
+	},
 	
 	sendClearCueCommand() {
 		let cmd = {
