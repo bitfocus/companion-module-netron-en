@@ -69,7 +69,7 @@ module.exports = {
 		}.bind(this));
 	},
 
-  sendRunCueCommand(cmd) {
+  sendSaveCueCommand(cmd) {
 		this.log('info', 'Saving Cue ' + cmd.CueNum);
 
 		let args = {
