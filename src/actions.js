@@ -35,6 +35,29 @@ module.exports = {
 			}
 		}
 
+    actions.saveCue = {
+      name: 'Save Cue',
+      options: [
+        {
+          type: 'number',
+          label: 'Cue Number',
+          id: 'cueNumber',
+          min: 1,
+          max: 99,
+          default: 1,
+          required: true,
+          range: false
+        }
+      ],
+      callback: async function(event) {
+        let cmd = {
+          CueNum: event.options.cueNumber,
+          EndFlag: 1
+        }
+        self.sendSaveCueCommand(cmd);
+      }
+    }
+
 		actions.clearCue = {
 			name: 'Clear Cue',
 			options: [],
