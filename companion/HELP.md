@@ -23,7 +23,7 @@ Any other cue name format will result in the variable being set to 0.
 
 **Available Variables:**
 * Currently Running Cue Name (current_cue_name)
-* Currently Running Cue Number (current_cue_
+* Currently Running Cue Number (current_cue)
 
 **Available Presets:**
 * Run Cue [1-99] (with feedback)
