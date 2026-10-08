@@ -3,6 +3,7 @@ module.exports = {
 		let variables = [];
 
 		if (this.config.polling) {
+			variables.push( { variableId: 'current_cue_name', name: 'Current Cue Name' } );
 			variables.push( { variableId: 'current_cue', name: 'Current Cue Number' } );
 		}
 
@@ -16,6 +17,7 @@ module.exports = {
 			let variableObj = {};
 
 			if (self.config.polling) {
+				variableObj['current_cue_name'] = self.CURRENT_CUE_NAME;
 				variableObj['current_cue'] = self.CURRENT_CUE;
 			}
 
