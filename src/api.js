@@ -35,7 +35,13 @@ module.exports = {
 				if (data.CueRunningName.indexOf('Cue ') > -1) {
 					self.CURRENT_CUE = parseInt(data.CueRunningName.replace('Cue ',''));
 				}
+				else if (data.CueRunningName.indexOf('|') > -1) {
+					self.CURRENT_CUE = parseInt(data.CueRunningName.split('|')[0].trim());
+				}
 				else {
+					self.CURRENT_CUE = 0;
+				}
+				if (!Number.isInteger(self.CURRENT_CUE) || self.CURRENT_CUE < 0) {
 					self.CURRENT_CUE = 0;
 				}
 				self.checkVariables();
